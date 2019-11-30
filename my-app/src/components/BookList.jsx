@@ -12,15 +12,17 @@ const getBooks = gql`
 }`
 
 const BookList = (props) => {
-    console.log(props)
-    return (
+    let data = props.data;
 
-        <div>
-            <ul id="book-list"></ul>
+    if (data.loading) {
+        return <h3>Data still loading</h3>
+    }
 
-        </div>
-
-    );
+    else {
+        return data.books.map(book => {
+            return (<li key={book.id}>{book.name}</li>);
+        })
+    };
 }
 
 export default graphql(getBooks)(BookList);   
